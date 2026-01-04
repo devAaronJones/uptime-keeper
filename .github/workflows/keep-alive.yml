@@ -1,0 +1,23 @@
+name: Keep Render Alive
+
+on:
+  schedule:
+    # Ping every 13 and 17 minutes.
+    - cron: '*/11 * * * *' # Every 13th minute
+    - cron: '*/13 * * * *' # Every 17th minute
+  
+  # (Manual testing)
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render
+        run: |
+          # -I: Headers only 
+          # --max-time 180: Waits 3 minutes
+          # -s: Silent (keeps logs clean)
+          # -w: Prints status code
+          
+          curl -I -s --max-time 180 -o /dev/null -w "%{http_code}" https://vocabmasterpro.onrender.com/health
