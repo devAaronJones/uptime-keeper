@@ -2,9 +2,9 @@ name: Keep Render Alive
 
 on:
   schedule:
-    # Ping every 13 and 17 minutes.
-    - cron: '*/11 * * * *' # Every 13th minute
-    - cron: '*/13 * * * *' # Every 17th minute
+    # Ping every 11 and 13 minutes.
+    - cron: '*/11 * * * *' 
+    - cron: '*/13 * * * *' 
   
   # (Manual testing)
   workflow_dispatch:
