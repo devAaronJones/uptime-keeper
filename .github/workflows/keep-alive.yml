@@ -5,6 +5,9 @@ on:
     # Ping every 11 and 13 minutes.
     - cron: '*/11 * * * *' 
     - cron: '*/13 * * * *' 
+
+    # Daily repo activity to prevent GitHub disabling workflow
+    - cron: '5 3 * * *'
   
   # (Manual testing)
   workflow_dispatch:
@@ -21,3 +24,21 @@ jobs:
           # -w: Prints status code
           
           curl -I -s --max-time 180 -o /dev/null -w "%{http_code}" https://vocabmasterpro.onrender.com/health
+
+      - name: Checkout repo (daily run only)
+        if: github.event.schedule == '5 3 * * *'
+        uses: actions/checkout@v4
+
+      - name: Update keepalive file
+        if: github.event.schedule == '5 3 * * *'
+        run: |
+          date > .github/keepalive.txt
+
+      - name: Commit keepalive update
+        if: github.event.schedule == '5 3 * * *'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add .github/keepalive.txt
+          git commit -m "Daily keepalive update" || echo "No changes"
+          git push
