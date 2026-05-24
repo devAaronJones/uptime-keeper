@@ -6,13 +6,16 @@ on:
     - cron: '5 3 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+  
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
       - name: Ping Render
         run: |
-          curl -L --fail --retry 3 \
+          curl -L --fail --retry 3 --max-time 120 \
           https://vocabmasterpro.onrender.com/
 
       - name: Checkout repo (daily run only)
