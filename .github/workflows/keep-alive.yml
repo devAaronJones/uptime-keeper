@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Ping Render
         run: |
-          STATUS=$(curl -s --max-time 180 -o /dev/null -w "%{http_code}" https://vocabmasterpro.onrender.com/health)
-          echo "Status: $STATUS"
+          curl -L --fail --retry 3 \
+          https://vocabmasterpro.onrender.com/
 
       - name: Checkout repo (daily run only)
         if: github.event.schedule == '5 3 * * *'
