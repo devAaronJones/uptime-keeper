@@ -15,7 +15,7 @@ jobs:
     steps:
       - name: Ping Render
         run: |
-          curl -L --fail --retry 3 --max-time 120 \
+          curl -L --fail --retry 3 --max-time 180 \
           https://vocabmasterpro.onrender.com/
 
       - name: Checkout repo (daily run only)
