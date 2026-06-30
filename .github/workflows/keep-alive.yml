@@ -16,7 +16,7 @@ jobs:
       - name: Ping Render
         run: |
           curl -L --fail --retry 3 --max-time 180 \
-          https://vocabmasterpro.onrender.com/
+          https://englishmasterpro.onrender.com/
 
       - name: Checkout repo (daily run only)
         if: github.event.schedule == '5 3 * * *'
